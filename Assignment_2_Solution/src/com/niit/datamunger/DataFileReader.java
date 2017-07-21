@@ -17,16 +17,18 @@ public class DataFileReader {
 		this.fileName = fileName;
 	}
 
-	public Map<String, Integer> getHeader() {
-		Map<String, Integer> header = new LinkedHashMap<>();
+	public String [] getHeader() {
+		String [] header=null;
 		try {
 			bufferedReader = new BufferedReader(new FileReader(fileName));
 			String line = bufferedReader.readLine();
 			String columns[] = line.split(",");
 			int i = 0;
+			int size=columns.length;
+			header=new String[size];
 			for (String column : columns) {
-				header.put(column, i);
-				i++;
+			header[i]=column;
+			i++;
 			}
 		} catch (Exception e) {
 
@@ -36,46 +38,46 @@ public class DataFileReader {
 		return header;
 	}
 
-	public Map<String, String> getHeaderDataType() {
-
-		Map<String, String> headerDataType = new LinkedHashMap<>();
-		try {
-
-			bufferedReader = new BufferedReader(new FileReader(fileName));
-			bufferedReader.readLine();
-			String line = bufferedReader.readLine();
-			String columns[] = line.split(",");
-			for (String column : columns) {
-				if (Pattern.matches("\\D+", column)) {
-					headerDataType.put(column, "String");
-				} else {
-					headerDataType.put(column, "Number");
-				}
-			}
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-
-		return headerDataType;
+	public String[] getHeaderDataType() {
+		
+		return null;
 	}
 
-	public Map<Integer, String> getData() {
+	public String[] getData() {
 		
-		Map<Integer, String> rowData= new LinkedHashMap<>();
+		String [] data=null;
+		String line="";
+		int i=0;
 		try {
 			bufferedReader = new BufferedReader(new FileReader(fileName));
 			bufferedReader.readLine();
-			String line = bufferedReader.readLine();
+			
+			while((line=bufferedReader.readLine())!=null)
+			{
 			String columns[] = line.split(",");
-			for (String column : columns) {
-				
+			data= new String[columns.length];
+			
+				data[i]=columns.toString();
+				i++;
 			}
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		return null;
+		return data;
+	}
+	
+	public static boolean isNumeric(String column)
+	{
+		try
+		{
+			double number = Double.parseDouble(column);
+			return true;
+		}
+		catch(Exception ex)
+		{
+			return false;
+		}
 	}
 }

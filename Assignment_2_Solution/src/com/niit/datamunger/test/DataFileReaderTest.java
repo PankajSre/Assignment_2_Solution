@@ -22,19 +22,19 @@ public class DataFileReaderTest {
 	@Test
 	public void testHeaderColumns()
 	{
-		Map<String, Integer> headerColumns=dataFileReader.getHeader();
+		String[] headerColumns=dataFileReader.getHeader();
 		assertNotNull(headerColumns);
-		for(Map.Entry<String, Integer> header: headerColumns.entrySet())
+		for(String header: headerColumns)
 		{
-			System.out.print(header.getKey()+"   ");
+			System.out.print(header+"   ");
 		}
 	}
 	@Test
 	public void testHeaderColumnCount()
 	{
 		int count=0;
-		Map<String, Integer> headerColumns=dataFileReader.getHeader();
-		for(Map.Entry<String, Integer> header: headerColumns.entrySet())
+		String [] headerColumns=dataFileReader.getHeader();
+		for(String header: headerColumns)
 		{
 			count++;
 		}
@@ -44,8 +44,8 @@ public class DataFileReaderTest {
 	@Test
 	public void testHeaderColumnAvailability()
 	{
-		Map<String, Integer> headerColumns=dataFileReader.getHeader();
-	    assertEquals(true, headerColumns.containsKey("Salary"));
+		String [] headerColumns=dataFileReader.getHeader();
+	    assertEquals(true, headerColumns[2].contains("City"));
 	}
 
 	
